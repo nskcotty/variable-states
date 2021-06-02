@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{E12F699A-E56E-44BD-8CD0-076AD6FF05B7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestVariableStatesApp", "TestVariableStatesApp\TestVariableStatesApp.csproj", "{E12F699A-E56E-44BD-8CD0-076AD6FF05B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

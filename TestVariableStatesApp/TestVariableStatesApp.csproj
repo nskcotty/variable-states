@@ -3,6 +3,7 @@
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>net5.0</TargetFramework>
+        <RootNamespace>ConsoleApp1</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -25,6 +26,12 @@
       <Compile Remove="Java9Parser.cs" />
       <Compile Remove="Java9LexerBase.cs" />
       <Compile Remove="Java9Lexer.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\..\..\..\..\Users\NSkakalskaia\Desktop\TestFile.java">
+        <Link>TestFile.java</Link>
+      </Content>
     </ItemGroup>
 
 </Project>
