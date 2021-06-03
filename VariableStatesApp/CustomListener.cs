@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Data;
 using System.Linq;
 
@@ -107,7 +109,7 @@ namespace VariableStates
         {
             // Increase the counter of opened statements
             idOfCurrentIfStatement++;
-            // Append the sting of open statements 
+            // Append the string of open statements 
             openStatementsForAssignment = $"{openStatementsForAssignment}{idOfCurrentIfStatement.ToString()}";
             base.EnterIfThenStatement(context);
         }
@@ -135,14 +137,14 @@ namespace VariableStates
             /* Process all possible candidate backwards in order to keep those ones that
              * were last in the same level
              */
-            foreach (var (key, value) in possible_states_map.Reverse())
+            foreach (var (key, value) in possible_states_map.Cast<DictionaryEntry>().Reverse())
             {
                 /*
                  * Detects if current variable state was followed by another assignment within same block
                  * If so, the value of variable will be rewritten and we don't use it
                  */
                 var isFollowedByNewAssignmentInSameBlock = false;
-                foreach (var statement in statementsWhereWasAssignment.Where(statement => value.StartsWith(statement)))
+                foreach (var statement in statementsWhereWasAssignment.Where(statement => value.ToString().StartsWith(statement)))
                 {
                     isFollowedByNewAssignmentInSameBlock = true;
                 }
@@ -153,7 +155,7 @@ namespace VariableStates
                 }
 
                 // Remove the unique part of the variable state value
-                int variableState = Convert.ToInt32(key.Substring(0, key.IndexOf("_")));
+                int variableState = Convert.ToInt32(key.ToString().Substring(0, key.ToString().IndexOf("_")));
                 // Add check if that state already exists
                 if (!variableStates.Contains(variableState))
                 {
@@ -164,7 +166,7 @@ namespace VariableStates
                  * It means that the variable state on this level of statements was changed
                  * and all the previous possible states will be rewritten
                  */
-                statementsWhereWasAssignment.Add(value);
+                statementsWhereWasAssignment.Add(value.ToString());
             }
 
             // Reverse the list in order to print values as they appeared in the source code
@@ -198,7 +200,7 @@ namespace VariableStates
         private List<int> variableStates = new ();
         
         // Map that contains a pair (possible var state, it's sequence of indices)
-        private Dictionary<string, string> possible_states_map = new ();
+        private OrderedDictionary possible_states_map = new ();
         
         // Random generator provides unique suffix needed to distinguish multiple equal variable states in a map
         private readonly Random randomGenerator = new ();
