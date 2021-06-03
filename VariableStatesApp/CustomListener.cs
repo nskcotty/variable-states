@@ -8,7 +8,7 @@ namespace VariableStates
     /// <summary>
     /// This class implements custom listener based on <see cref="Java8ParserBaseListener"/>
     /// </summary>
-    class CustomListener : Java8ParserBaseListener
+    public class CustomListener : Java8ParserBaseListener
     {
         /// <summary>
         /// Process right-hand side expression
@@ -41,8 +41,9 @@ namespace VariableStates
             // Calculate the expression before adding to the map
             else
             {
+                var operationResult = (int)Convert.ToDouble(new DataTable().Compute(rightHandSideExpression, null));
                 possibleVariableState =
-                    $"{new DataTable().Compute(rightHandSideExpression, null)}{'_'}{randomGenerator.Next()}";
+                    $"{operationResult}{'_'}{randomGenerator.Next()}";
             }
             // /*
             //  * Add the pair (possible state, count of current opened statements) to map
@@ -153,7 +154,11 @@ namespace VariableStates
 
                 // Remove the unique part of the variable state value
                 int variableState = Convert.ToInt32(key.Substring(0, key.IndexOf("_")));
-                variableStates.Add(variableState);
+                // Add check if that state already exists
+                if (!variableStates.Contains(variableState))
+                {
+                    variableStates.Add(variableState);
+                }
                 /*
                  * Add opened statements indices to the list
                  * It means that the variable state on this level of statements was changed
@@ -169,6 +174,11 @@ namespace VariableStates
             Console.WriteLine(resultingVariableStates);
 
             base.ExitMethodBody(context);
+        }
+
+        public List<int> ReturnVariableStates()
+        {
+            return variableStates;
         }
         
         /*

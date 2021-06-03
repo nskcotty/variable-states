@@ -14,14 +14,16 @@ namespace VariableStates
                 string fileName;
                 do
                 {
-                    Console.WriteLine("Enter filename: ");
+                    Console.WriteLine("Enter filename: "); // ../../../../TestFile.java
+                                                            // ../../../../TestFile2_ArithmeticOperations.java
+                                                            // ../../../../TestFile3_Braces.java
+                                                            // ../../../../TestFile4_SameVariableValues.java
                     fileName = Console.ReadLine();
                 } while (!File.Exists(fileName));
 
                 // Read source code 
                 ICharStream stream =
-                    CharStreams.fromPath(
-                        "C:\\Users\\NSkakalskaia\\Desktop\\TestFile.java");
+                    CharStreams.fromPath(fileName);
                 ITokenSource lexer = new Java8Lexer(stream);
                 ITokenStream tokens = new CommonTokenStream(lexer);
                 Java8Parser parser = new Java8Parser(tokens);

@@ -18,6 +18,7 @@
       <None Remove="Java9Lexer.tokens" />
       <None Remove="Java9Lexer.interp" />
       <None Remove="Java9Lexer.g4" />
+      <None Remove="TestFile2_ArithmeticOperations.java" />
     </ItemGroup>
 
     <ItemGroup>
@@ -31,6 +32,15 @@
     <ItemGroup>
       <Content Include="..\..\..\..\..\Users\NSkakalskaia\Desktop\TestFile.java">
         <Link>TestFile.java</Link>
+      </Content>
+      <Content Include="..\..\..\..\..\Users\NSkakalskaia\Desktop\TestFile2_ArithmeticOperations.java">
+        <Link>TestFile2_ArithmeticOperations.java</Link>
+      </Content>
+      <Content Include="..\..\..\..\..\Users\NSkakalskaia\Desktop\TestFile3_Braces.java">
+        <Link>TestFile3_Braces.java</Link>
+      </Content>
+      <Content Include="..\TestFile4_SameVariableValues.java">
+        <Link>TestFile4_SameVariableValues.java</Link>
       </Content>
     </ItemGroup>
 
