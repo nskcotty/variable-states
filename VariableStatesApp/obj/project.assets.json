@@ -39,11 +39,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Program Files\\CrowdStrike\\RiderProjects\\Solution1\\TestVariableStatesApp\\TestVariableStatesApp.csproj",
-      "projectName": "TestVariableStatesApp",
-      "projectPath": "C:\\Program Files\\CrowdStrike\\RiderProjects\\Solution1\\TestVariableStatesApp\\TestVariableStatesApp.csproj",
+      "projectUniqueName": "C:\\Program Files\\CrowdStrike\\RiderProjects\\Solution1\\VariableStatesApp\\VariableStatesApp.csproj",
+      "projectName": "VariableStatesApp",
+      "projectPath": "C:\\Program Files\\CrowdStrike\\RiderProjects\\Solution1\\VariableStatesApp\\VariableStatesApp.csproj",
       "packagesPath": "C:\\Users\\NSkakalskaia\\.nuget\\packages\\",
-      "outputPath": "C:\\Program Files\\CrowdStrike\\RiderProjects\\Solution1\\TestVariableStatesApp\\obj\\",
+      "outputPath": "C:\\Program Files\\CrowdStrike\\RiderProjects\\Solution1\\VariableStatesApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\NSkakalskaia\\AppData\\Roaming\\NuGet\\NuGet.Config"
