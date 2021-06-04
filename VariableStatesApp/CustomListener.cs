@@ -40,14 +40,14 @@ namespace VariableStates
                 //  * Add random string to distinguish two numbers from each other later
                 //  * (e.g. we have 'x=1' and later in other block 'x=1' again
                 //  */
-                possibleVariableState = $"{rightHandSideExpression}{'_'}{randomGenerator.Next()}";
+                possibleVariableState = $"{rightHandSideExpression}{'_'}{counter++}";
             }
             // Calculate the expression before adding to the map
             else
             {
                 var operationResult = (int)Convert.ToDouble(new DataTable().Compute(rightHandSideExpression, null));
                 possibleVariableState =
-                    $"{operationResult}{'_'}{randomGenerator.Next()}";
+                    $"{operationResult}{'_'}{counter++}";
             }
             // /*
             //  * Add the pair (possible state, count of current opened statements) to map
@@ -222,8 +222,8 @@ namespace VariableStates
         // Map that contains a pair (possible var state, it's sequence of indices)
         private OrderedDictionary possible_states_map = new ();
         
-        // Random generator provides unique suffix needed to distinguish multiple equal variable states in a map
-        private readonly Random randomGenerator = new ();
+        // Counter for unique dictionary key
+        private int counter = 0;
 
         // Assume that need to test only variable named 'x'
         private readonly string variableName = "x";
