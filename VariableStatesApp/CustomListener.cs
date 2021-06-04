@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Collections.Specialized;
 using System.Data;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace VariableStates
 {
@@ -50,7 +52,16 @@ namespace VariableStates
             // /*
             //  * Add the pair (possible state, count of current opened statements) to map
             //  */
-            possible_states_map.Add(possibleVariableState, openStatementsForAssignment);
+            if (!openStatementsForAssignment.Any())
+            {
+                var zeroLevelStatement = ImmutableList<int>.Empty;
+                zeroLevelStatement = zeroLevelStatement.Add(0);
+                possible_states_map.Add(possibleVariableState,zeroLevelStatement);
+                }
+            else
+            {
+                possible_states_map.Add(possibleVariableState, openStatementsForAssignment);
+            }
         }
         
         /// <summary>
@@ -110,7 +121,7 @@ namespace VariableStates
             // Increase the counter of opened statements
             idOfCurrentIfStatement++;
             // Append the string of open statements 
-            openStatementsForAssignment = $"{openStatementsForAssignment}{idOfCurrentIfStatement.ToString()}";
+            openStatementsForAssignment = openStatementsForAssignment.Add(idOfCurrentIfStatement);
             base.EnterIfThenStatement(context);
         }
         
@@ -121,7 +132,7 @@ namespace VariableStates
         public override void ExitIfThenStatement(Java8Parser.IfThenStatementContext context)
         {
             // Remove the index of statement we're exiting from the opened statements list
-            openStatementsForAssignment = openStatementsForAssignment.Remove(openStatementsForAssignment.Length - 1, 1);
+            openStatementsForAssignment = openStatementsForAssignment.RemoveAt(openStatementsForAssignment.Count-1);
             base.ExitIfThenStatement(context);
         }
 
@@ -132,21 +143,30 @@ namespace VariableStates
         public override void ExitMethodBody(Java8Parser.MethodBodyContext context)
         {
             // Contains statements indices which were already processed backwards
-            List<string> statementsWhereWasAssignment = new ();
+            List<List<int>> statementsWhereWasAssignment = new ();
 
             /* Process all possible candidate backwards in order to keep those ones that
              * were last in the same level
              */
-            foreach (var (key, value) in possible_states_map.Cast<DictionaryEntry>().Reverse())
+            foreach (var dictionaryEntry in possible_states_map.Cast<DictionaryEntry>().Reverse())
             {
                 /*
                  * Detects if current variable state was followed by another assignment within same block
                  * If so, the value of variable will be rewritten and we don't use it
                  */
                 var isFollowedByNewAssignmentInSameBlock = false;
-                foreach (var statement in statementsWhereWasAssignment.Where(statement => value.ToString().StartsWith(statement)))
+
+                var currentLevels = dictionaryEntry.Value as ImmutableList<int>;
+
+                foreach (var statement in statementsWhereWasAssignment)
                 {
                     isFollowedByNewAssignmentInSameBlock = true;
+                    // Check if any level id from previously found levels presented in current level indices list
+                    // (e.g. previously was [1,2] and current level is [1,2,3]
+                    foreach (var elem in statement)
+                    {
+                        isFollowedByNewAssignmentInSameBlock &= currentLevels.Contains(elem);
+                    }
                 }
 
                 if (isFollowedByNewAssignmentInSameBlock)
@@ -155,7 +175,7 @@ namespace VariableStates
                 }
 
                 // Remove the unique part of the variable state value
-                int variableState = Convert.ToInt32(key.ToString().Substring(0, key.ToString().IndexOf("_")));
+                int variableState = Convert.ToInt32(dictionaryEntry.Key.ToString().Substring(0, dictionaryEntry.Key.ToString().IndexOf("_")));
                 // Add check if that state already exists
                 if (!variableStates.Contains(variableState))
                 {
@@ -166,7 +186,7 @@ namespace VariableStates
                  * It means that the variable state on this level of statements was changed
                  * and all the previous possible states will be rewritten
                  */
-                statementsWhereWasAssignment.Add(value.ToString());
+                statementsWhereWasAssignment.Add(currentLevels.ToList());
             }
 
             // Reverse the list in order to print values as they appeared in the source code
@@ -194,7 +214,7 @@ namespace VariableStates
          * When entered another if statement within the first one  - "12"
          * When exited the second statement and entered the next one still within the first one - "13"
          */
-        private string openStatementsForAssignment = "";
+        private ImmutableList<int> openStatementsForAssignment = ImmutableList.Create<int>();
         
         // List containing resulting possible variable states
         private List<int> variableStates = new ();

@@ -18,6 +18,8 @@ namespace VariableStates
                                                             // ../../../../TestFile2_ArithmeticOperations.java
                                                             // ../../../../TestFile3_Braces.java
                                                             // ../../../../TestFile4_SameVariableValues.java
+                                                            // ../../../../TestFile5_2DigitLevels.java
+                                                            // ../../../../TestFile6_CheckThatAssignmentRewritten.java
                     fileName = Console.ReadLine();
                 } while (!File.Exists(fileName));
 
