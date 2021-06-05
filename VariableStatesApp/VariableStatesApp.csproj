@@ -36,6 +36,9 @@
       <Content Include="..\..\..\..\..\Users\NSkakalskaia\Desktop\TestFile3_Braces.java">
         <Link>TestFile3_Braces.java</Link>
       </Content>
+      <Content Include="..\.gitignore">
+        <Link>.gitignore</Link>
+      </Content>
       <Content Include="..\TestFile.java">
         <Link>TestFile.java</Link>
       </Content>
