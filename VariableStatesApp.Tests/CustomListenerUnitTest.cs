@@ -7,7 +7,7 @@ namespace VariableStatesApp.Tests
     [TestClass]
     public class CustomListenerUnitTest
     {
-        [DataRow("../../../TestFile.java", 1, 4, 7, 6)]
+        [DataRow("../../../TestFile.java", 1, 4, 5, 6)]
         [DataRow("../../../TestFile2_ArithmeticOperations.java", 1, 12, 5, -60)]
         [DataRow("../../../TestFile3_Braces.java", 1, 4, 200, 56)]
         [DataRow("../../../TestFile4_SameVariableValues.java", 1, 8)]

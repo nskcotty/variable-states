@@ -3,28 +3,20 @@ public class Main {
       int x = 1;
       if (conditions[0])
       {
-        x=2;
-        if (conditions[1])
-        {
-        x=3;
-        }
-        x=4;
-                {
-                    x = 9;
-                    x=4;
-                }
-        if (conditions[2])
-        {
-            x=5;
+            x=2;
+            if (conditions[1])
             {
-                x = 7;
-        }
+                x=3;
+            }
+            x=4;
+            if (conditions[2])
+            {
+                x=5;
+            }
       }
       if (conditions[3])
       {
-        x = 6;
-        }
-}
-
+            x = 6;
+      }
 }
 }
