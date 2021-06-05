@@ -10,6 +10,13 @@ namespace VariableStates
         {
             try
             {
+                // ../../../../TestFile.java
+                // ../../../../TestFile2_ArithmeticOperations.java
+                // ../../../../TestFile3_Braces.java
+                // ../../../../TestFile4_SameVariableValues.java
+                // ../../../../TestFile5_2DigitLevels.java
+                // ../../../../TestFile6_CheckThatAssignmentRewritten.java
+                //  ../../../../TestFile7_ConsiderOnlyXVariable.java
                 string fileName;
                 do
                 {
@@ -23,9 +30,9 @@ namespace VariableStates
                 string variableStatesString = $"{'['}{String.Join(", ", variableStates)}{']'}";
                 Console.WriteLine(variableStatesString);
             }
-            catch (Exception systemException)
+            catch (Exception exception)
             {
-                Console.WriteLine("Exception occured: {0}", systemException.Message);
+                Console.WriteLine("Exception occured: {0}", exception.Message);
             }
         }
     }
