@@ -12,7 +12,7 @@ namespace VariableStates
     /// <summary>
     /// This class implements custom listener based on <see cref="Java8ParserBaseListener"/>
     /// </summary>
-    public class CustomListener : Java8ParserBaseListener
+    internal class CustomListener : Java8ParserBaseListener
     {
         /// <summary>
         /// Process right-hand side expression
@@ -56,11 +56,11 @@ namespace VariableStates
             {
                 var zeroLevelStatement = ImmutableList<int>.Empty;
                 zeroLevelStatement = zeroLevelStatement.Add(0);
-                possible_states_map.Add(possibleVariableState,zeroLevelStatement);
-                }
+                possibleStatesMap.Add(possibleVariableState,zeroLevelStatement);
+            }
             else
             {
-                possible_states_map.Add(possibleVariableState, openStatementsForAssignment);
+                possibleStatesMap.Add(possibleVariableState, openStatementsForAssignment);
             }
         }
         
@@ -148,7 +148,7 @@ namespace VariableStates
             /* Process all possible candidate backwards in order to keep those ones that
              * were last in the same level
              */
-            foreach (var dictionaryEntry in possible_states_map.Cast<DictionaryEntry>().Reverse())
+            foreach (var dictionaryEntry in possibleStatesMap.Cast<DictionaryEntry>().Reverse())
             {
                 /*
                  * Detects if current variable state was followed by another assignment within same block
@@ -191,9 +191,6 @@ namespace VariableStates
 
             // Reverse the list in order to print values as they appeared in the source code
             variableStates.Reverse();
-            // Pretty-print
-            string resultingVariableStates = $"{'['}{String.Join(", ", variableStates)}{']'}";
-            Console.WriteLine(resultingVariableStates);
 
             base.ExitMethodBody(context);
         }
@@ -220,7 +217,7 @@ namespace VariableStates
         private List<int> variableStates = new ();
         
         // Map that contains a pair (possible var state, it's sequence of indices)
-        private OrderedDictionary possible_states_map = new ();
+        private OrderedDictionary possibleStatesMap = new ();
         
         // Counter for unique dictionary key
         private int counter = 0;

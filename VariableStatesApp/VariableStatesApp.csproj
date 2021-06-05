@@ -48,6 +48,9 @@
       <Content Include="..\TestFile6_CheckThatAssignmentRewritten.java">
         <Link>TestFile6_CheckThatAssignmentRewritten.java</Link>
       </Content>
+      <Content Include="..\TestFile7_ConsiderOnlyXVariable.java">
+        <Link>TestFile7_ConsiderOnlyXVariable.java</Link>
+      </Content>
     </ItemGroup>
 
 </Project>
